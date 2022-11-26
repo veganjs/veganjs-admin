@@ -1,25 +1,25 @@
-import path from "node:path";
+import path from 'node:path'
 
-import { defineConfig, splitVendorChunkPlugin } from "vite";
-import react from "@vitejs/plugin-react";
-import { checker } from "vite-plugin-checker";
-import eslint from "vite-plugin-eslint";
-import stylelint from "vite-plugin-stylelint";
-import svgr from "vite-plugin-svgr";
+import react from '@vitejs/plugin-react'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import { checker } from 'vite-plugin-checker'
+import eslint from 'vite-plugin-eslint'
+import stylelint from 'vite-plugin-stylelint'
+import svgr from 'vite-plugin-svgr'
 
 export default defineConfig(({ mode }) => {
   const aliases = [
     {
       find: /~/,
-      replacement: path.resolve(__dirname, "./src"),
+      replacement: path.resolve(__dirname, './src'),
     },
-  ];
+  ]
 
-  if (mode === "test") {
+  if (mode === 'test') {
     aliases.push({
       find: /^effector-react$/,
-      replacement: "effector-react/scope",
-    });
+      replacement: 'effector-react/scope',
+    })
   }
 
   return {
@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react({
         babel: {
-          plugins: [["effector/babel-plugin", { addLoc: true }]],
+          plugins: [['effector/babel-plugin', { addLoc: true }]],
         },
       }),
       splitVendorChunkPlugin(),
@@ -43,13 +43,13 @@ export default defineConfig(({ mode }) => {
     },
     test: {
       globals: true,
-      environment: "jsdom",
-      setupFiles: "./src/setupTests.ts",
+      environment: 'jsdom',
+      setupFiles: './src/setupTests.ts',
     },
     css: {
       modules: {
-        localsConvention: "camelCase",
+        localsConvention: 'camelCase',
       },
     },
-  };
-});
+  }
+})
